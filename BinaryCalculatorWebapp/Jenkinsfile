@@ -29,7 +29,7 @@ pipeline {
       }
       steps{
         script {
-          docker.withRegistry( 'https://wzcsofe3980ulab4.azurecr.io', registryCredential ) {
+          docker.withRegistry( 'https://wzcsofe3980ulab4.azurecr.io/BinaryCalculatorWebapp', registryCredential ) {
             dockerImage.push("latest")
           }
         }
