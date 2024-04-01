@@ -15,32 +15,14 @@ pipeline {
         sh 'mvn clean test -f ./BinaryCalculatorWebapp/pom.xml'
       }
     }
-    stage ('build and image') {
+    stage ('build') {
       steps {
         sh 'mvn package -DskipTests -f ./BinaryCalculatorWebapp/pom.xml'
-        script {
-          dockerImage = docker.build BinaryCalculatorWebapp
-        }
       }
     }
-    stage ('push image') {
-      environment {
-        registryCredential = 'jenkins-acr-creds' 
-      }
-      steps{
-        script {
-          docker.withRegistry( 'https://wzcsofe3980ulab4.azurecr.io', registryCredential ) {
-            dockerImage.push("latest")
-          }
-        }
-      }
-    }
-    stage ('Deploy to kubernetes') {
+    stage ('Deploy') {
       steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", 
-                                         "service.yaml")
-        }
+        sh 'echo "bye bye"'
       }
     }
   }
