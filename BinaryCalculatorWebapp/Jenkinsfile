@@ -1,4 +1,8 @@
 pipeline {
+  environment {
+    dockerimagename = "BinaryCalculatorWebapp"
+    dockerImage = ""
+  }
   agent any
   tools {
     maven 'maven' 
@@ -19,7 +23,7 @@ pipeline {
       steps {
         sh 'mvn package -DskipTests -f ./BinaryCalculatorWebapp/pom.xml'
         script {
-          dockerImage = docker.build BinaryCalculatorWebapp
+          dockerImage = docker.build dockerimagename
         }
       }
     }
